@@ -1,0 +1,156 @@
+<div class="d-flex flex-row w-100">
+  <h4 class="h4">
+    {{ type === "create" ? "Create Candidate" : "Edit Candidate" }}
+  </h4>
+  <span class="spacer"></span>
+  <button mat-mini-fab mat-dialog-close style="margin-top: -6px">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="container-fluid mt-4">
+  <form [formGroup]="candidateForm">
+    <div class="row">
+      <div class="col-4 mt-4">
+        <mat-label>Candidate Id <span class="text-danger">*</span></mat-label>
+        <input
+          type="number"
+          placeholder=""
+          class="form-control"
+          formControlName="candidateId"
+          [ngClass]="{ 'has-error': submitted && f['candidateId'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['candidateId'].hasError('required')"
+          >Candidate Id is required.</mat-error
+        >
+      </div>
+      <div class="col-4 mt-4">
+        <mat-label>First Name <span class="text-danger">*</span></mat-label>
+        <input
+          placeholder=""
+          class="form-control"
+          formControlName="fname"
+          [ngClass]="{ 'has-error': submitted && f['fname'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['fname'].hasError('required')"
+          >First Name is required.</mat-error
+        >
+      </div>
+      <div class="col-4 mt-4">
+        <mat-label>Last Name <span class="text-danger">*</span></mat-label>
+        <input
+          placeholder=""
+          class="form-control"
+          formControlName="lname"
+          [ngClass]="{ 'has-error': submitted && f['lname'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['lname'].hasError('required')"
+          >Last Name is required.</mat-error
+        >
+      </div>
+      <div class="col-4 mt-4">
+        <mat-label>Email <span class="text-danger">*</span></mat-label>
+        <input
+          placeholder=""
+          class="form-control"
+          formControlName="email"
+          [ngClass]="{ 'has-error': submitted && f['email'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['email'].hasError('required')"
+          >Email is required.</mat-error
+        >
+        <mat-error *ngIf="submitted && f['email'].hasError('invalid')"
+          >Email format is invalid.</mat-error
+        >
+      </div>
+      <div class="col-4 mt-4">
+        <mat-label>Phone <span class="text-danger">*</span></mat-label>
+        <input
+          placeholder=""
+          class="form-control"
+          formControlName="phone"
+          [ngClass]="{ 'has-error': submitted && f['phone'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['phone'].hasError('required')"
+          >Phone is required.</mat-error
+        >
+        <mat-error *ngIf="submitted && f['phone'].invalid">
+          Enter 10 digit phone number.</mat-error
+        >
+      </div>
+
+      <div class="col-4 mt-4">
+        <mat-label>Experience <span class="text-danger">*</span></mat-label>
+        <input
+          type="number"
+          placeholder=""
+          class="form-control"
+          formControlName="experience"
+          [ngClass]="{ 'has-error': submitted && f['experience'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['experience'].hasError('required')"
+          >Experience is required.</mat-error
+        >
+      </div>
+
+      <div class="col-4 mt-4">
+        <mat-label>Location <span class="text-danger">*</span></mat-label>
+        <input
+          placeholder=""
+          class="form-control"
+          formControlName="location"
+          [ngClass]="{ 'has-error': submitted && f['location'].errors }"
+        />
+        <mat-error *ngIf="submitted && f['location'].hasError('required')"
+          >Location is required.</mat-error
+        >
+      </div>
+
+      <div class="col-4 mt-4">
+        <mat-label
+          >Interview Status <span class="text-danger">*</span></mat-label
+        >
+        <mat-select
+          placeholder=""
+          class="form-control"
+          formControlName="interviewStatus"
+          [ngClass]="{ 'has-error': submitted && f['interviewStatus'].errors }"
+        >
+          <mat-option *ngFor="let st of status" [value]="st.value">{{
+            st.name
+          }}</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="submitted && f['interviewStatus'].hasError('required')"
+          >Interview Status is required.</mat-error
+        >
+      </div>
+
+      <div
+        class="col-4 mt-4"
+        *ngIf="f['interviewStatus'].value === 'scheduled'"
+      >
+        <mat-form-field>
+          <mat-label>Interview Date </mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            class="form-control"
+            formControlName="interviewTime"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button color="primary" (click)="submitForm()" cdkFocusInitial>
+        Save
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>
